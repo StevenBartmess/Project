@@ -10,6 +10,10 @@ class Controller(QMainWindow, Ui_MainWindow):
         super().__init__(*args, **kwargs)
         self.setupUi(self)
         self.Roll_button.clicked.connect(lambda: self.roll())
+        self.again_button.clicked.connect(lambda: self.reset())
+        self.you_score_label.setText(str(0))
+        self.opponent_score_label.setText(str(0))
+        self.again_button.hide()
 
     def roll(self):
         dice_one = random.randint(1, 6)
@@ -44,72 +48,282 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.Dice_ten.setPixmap(qpixmap)
 
         subtotal = dice_one + dice_two + dice_three + dice_four + dice_five
-        if dice_one == dice_two and dice_three and dice_four and dice_five:
+        dicegroup = [dice_one, dice_two, dice_three, dice_four, dice_five]
+        if dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[2] and dicegroup[0] == dicegroup[3] and dicegroup[0] == dicegroup[4]:
             subtotal += 25
-        elif dice_one == dice_two and dice_three and dice_four:
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[2] and dicegroup[0] == dicegroup[3]:
             subtotal += 20
-        elif dice_one == dice_two and dice_three and dice_five:
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[2] and dicegroup[0] == dicegroup[4]:
             subtotal += 20
-        elif dice_one == dice_three and dice_four and dice_five:
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[3] and dicegroup[0] == dicegroup[4]:
             subtotal += 20
-        elif dice_two == dice_three and dice_four and dice_five:
+        elif dicegroup[1] == dicegroup[2] and dicegroup[1] == dicegroup[3] and dicegroup[1] == dicegroup[4]:
             subtotal += 20
-        elif dice_one == dice_two and dice_three:
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[2]:
             subtotal += 15
-        elif dice_one == dice_two and dice_four:
+            if dicegroup[3] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[3]:
             subtotal += 15
-        elif dice_one == dice_two and dice_five:
+            if dicegroup[2] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[4]:
             subtotal += 15
-        elif dice_one == dice_three and dice_four:
+            if dicegroup[2] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[2] and dicegroup[0] == dicegroup[3]:
             subtotal += 15
-        elif dice_one == dice_three and dice_five:
+            if dicegroup[1] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[2] and dicegroup[0] == dicegroup[4]:
             subtotal += 15
-        elif dice_one == dice_four and dice_five:
+            if dicegroup[1] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[3] and dicegroup[0] == dicegroup[4]:
             subtotal += 15
-        elif dice_two == dice_three and dice_four:
+            if dicegroup[1] == dicegroup[2]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[2] and dicegroup[1] == dicegroup[3]:
             subtotal += 15
-        elif dice_two == dice_three and dice_five:
+            if dicegroup[0] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[2] and dicegroup[1] == dicegroup[4]:
             subtotal += 15
-        elif dice_two == dice_four and dice_five:
+            if dicegroup[0] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[3] and dicegroup[1] == dicegroup[4]:
             subtotal += 15
-        elif dice_three == dice_four and dice_five:
+            if dicegroup[0] == dicegroup[2]:
+                subtotal += 10
+        elif dicegroup[2] == dicegroup[3] and dicegroup[2] == dicegroup[4]:
             subtotal += 15
-        yourscore = subtotal
-        self.you_score_label.setText(str(yourscore))
+            if dicegroup[0] == dicegroup[1]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[1]:
+            subtotal += 10
+            if dicegroup[2] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[2] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[3] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[2]:
+            subtotal += 10
+            if dicegroup[1] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[3] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[3]:
+            subtotal += 10
+            if dicegroup[1] == dicegroup[2]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[2] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[4]:
+            subtotal += 10
+            if dicegroup[1] == dicegroup[2]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[2] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[2]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[3] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[3]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[2]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[2] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[4]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[2]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[2] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[2] == dicegroup[3]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[1]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[2] == dicegroup[4]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[1]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[3] == dicegroup[4]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[1]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[2]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[2]:
+                subtotal += 10
+        challenger = subtotal
+        currentmax = self.you_score_label.text()
+        if int(currentmax) < challenger:
+            currentmax = challenger
+        self.you_score_label.setText(str(currentmax))
         subtotal = dice_six + dice_seven + dice_eight + dice_nine + dice_ten
-        if dice_six == dice_seven and dice_eight and dice_nine and dice_ten:
+        dicegroup = [dice_six, dice_seven, dice_eight, dice_nine, dice_ten]
+        if dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[2] and dicegroup[0] == dicegroup[3] and dicegroup[
+            0] == dicegroup[4]:
             subtotal += 25
-        elif dice_six == dice_seven and dice_eight and dice_nine:
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[2] and dicegroup[0] == dicegroup[3]:
             subtotal += 20
-        elif dice_six == dice_seven and dice_eight and dice_ten:
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[2] and dicegroup[0] == dicegroup[4]:
             subtotal += 20
-        elif dice_six == dice_eight and dice_nine and dice_ten:
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[3] and dicegroup[0] == dicegroup[4]:
             subtotal += 20
-        elif dice_seven == dice_eight and dice_nine and dice_ten:
+        elif dicegroup[1] == dicegroup[2] and dicegroup[1] == dicegroup[3] and dicegroup[1] == dicegroup[4]:
             subtotal += 20
-        elif dice_six == dice_seven and dice_eight:
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[2]:
             subtotal += 15
-        elif dice_six == dice_seven and dice_nine:
+            if dicegroup[3] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[3]:
             subtotal += 15
-        elif dice_six == dice_seven and dice_ten:
+            if dicegroup[2] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[1] and dicegroup[0] == dicegroup[4]:
             subtotal += 15
-        elif dice_six == dice_eight and dice_nine:
+            if dicegroup[2] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[2] and dicegroup[0] == dicegroup[3]:
             subtotal += 15
-        elif dice_six == dice_eight and dice_ten:
+            if dicegroup[1] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[2] and dicegroup[0] == dicegroup[4]:
             subtotal += 15
-        elif dice_six == dice_nine and dice_ten:
+            if dicegroup[1] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[3] and dicegroup[0] == dicegroup[4]:
             subtotal += 15
-        elif dice_seven == dice_eight and dice_nine:
+            if dicegroup[1] == dicegroup[2]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[2] and dicegroup[1] == dicegroup[3]:
             subtotal += 15
-        elif dice_seven == dice_eight and dice_ten:
+            if dicegroup[0] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[2] and dicegroup[1] == dicegroup[4]:
             subtotal += 15
-        elif dice_seven == dice_nine and dice_ten:
+            if dicegroup[0] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[3] and dicegroup[1] == dicegroup[4]:
             subtotal += 15
-        elif dice_eight == dice_nine and dice_ten:
+            if dicegroup[0] == dicegroup[2]:
+                subtotal += 10
+        elif dicegroup[2] == dicegroup[3] and dicegroup[2] == dicegroup[4]:
             subtotal += 15
-        opponentscore = subtotal
-        self.opponent_score_label.setText(str(opponentscore))
+            if dicegroup[0] == dicegroup[1]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[1]:
+            subtotal += 10
+            if dicegroup[2] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[2] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[3] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[2]:
+            subtotal += 10
+            if dicegroup[1] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[3] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[3]:
+            subtotal += 10
+            if dicegroup[1] == dicegroup[2]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[2] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[0] == dicegroup[4]:
+            subtotal += 10
+            if dicegroup[1] == dicegroup[2]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[2] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[2]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[3] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[3]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[2]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[2] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[1] == dicegroup[4]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[2]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[2] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[2] == dicegroup[3]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[1]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[4]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[4]:
+                subtotal += 10
+        elif dicegroup[2] == dicegroup[4]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[1]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[3]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[3]:
+                subtotal += 10
+        elif dicegroup[3] == dicegroup[4]:
+            subtotal += 10
+            if dicegroup[0] == dicegroup[1]:
+                subtotal += 10
+            elif dicegroup[0] == dicegroup[2]:
+                subtotal += 10
+            elif dicegroup[1] == dicegroup[2]:
+                subtotal += 10
+        challenger = subtotal
+        currentmax = self.opponent_score_label.text()
+        if int(currentmax) < challenger:
+            currentmax = challenger
+        self.opponent_score_label.setText(str(currentmax))
 
+        self.setrolls()
 
     def getdice(self, dice):
         if dice == 1:
@@ -126,9 +340,25 @@ class Controller(QMainWindow, Ui_MainWindow):
             return "images/six.jpg"
 
     def setrolls(self):
-        rolls = 3
-        if rolls > 0:
-            rolls -= 1
+        rolls = int(self.Rolls_left_counter.text())
+        rolls -= 1
         self.Rolls_left_counter.setText(str(rolls))
-        if rolls <= 0:
+        if rolls == 0:
             self.Roll_button.hide()
+            self.again_button.show()
+            opponentscore = int(self.opponent_score_label.text())
+            youscore = int(self.you_score_label.text())
+            if youscore > opponentscore:
+                self.result_label.setText("You win!")
+            else:
+                self.result_label.setText("You lose!")
+
+
+
+    def reset(self):
+        self.again_button.hide()
+        self.Roll_button.show()
+        self.Rolls_left_counter.setText("3")
+        self.result_label.setText("")
+        self.opponent_score_label.setText("0")
+        self.you_score_label.setText("0")

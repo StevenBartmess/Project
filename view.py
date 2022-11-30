@@ -159,6 +159,13 @@ class Ui_MainWindow(object):
         self.Dice_nine.setMaximumSize(QtCore.QSize(80, 80))
         self.Dice_nine.setText("")
         self.Dice_nine.setObjectName("Dice_nine")
+        self.again_button = QtWidgets.QPushButton(self.centralwidget)
+        self.again_button.setGeometry(QtCore.QRect(420, 160, 131, 81))
+        self.again_button.setObjectName("again_button")
+        self.result_label = QtWidgets.QLabel(self.centralwidget)
+        self.result_label.setGeometry(QtCore.QRect(250, 180, 55, 16))
+        self.result_label.setText("")
+        self.result_label.setObjectName("result_label")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
@@ -193,6 +200,7 @@ class Ui_MainWindow(object):
         self.highscore_label2.setText(_translate("MainWindow", "highest score"))
         self.rolls_left_label.setText(_translate("MainWindow", "Rolls Left"))
         self.Rolls_left_counter.setText(_translate("MainWindow", "3"))
+        self.again_button.setText(_translate("MainWindow", "Try again"))
 
 
 if __name__ == "__main__":
